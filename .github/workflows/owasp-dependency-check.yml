@@ -13,21 +13,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Java
+      - name: Set up Java 17
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 17
 
-      - name: Run OWASP Dependency Check
-        uses: dependency-check/Dependency-Check_Action@main
-        with:
-          project: "e-gov"
-          path: "."
-          format: "HTML"
+      - name: Run OWASP Dependency Check (Maven)
+        run: mvn org.owasp:dependency-check-maven:check
 
-      - name: Upload Dependency Check Report
+      - name: Upload report
         uses: actions/upload-artifact@v4
         with:
           name: dependency-check-report
-          path: reports
+          path: target/dependency-check-report.html
