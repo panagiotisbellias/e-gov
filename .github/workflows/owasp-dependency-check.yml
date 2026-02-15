@@ -1,6 +1,33 @@
-- name: OWASP Dependency Check
-  uses: dependency-check/Dependency-Check_Action@main
-  with:
-    project: e-gov
-    path: .
-    format: HTML
+name: OWASP Dependency Check
+
+on:
+  push:
+    branches: [ master, development, release/v3.0.0 ]
+  pull_request:
+
+jobs:
+  dependency-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Run OWASP Dependency Check
+        uses: dependency-check/Dependency-Check_Action@main
+        with:
+          project: "e-gov"
+          path: "."
+          format: "HTML"
+
+      - name: Upload Dependency Check Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-check-report
+          path: reports
