@@ -1,6 +1,15 @@
 # Code of Conduct
 
-This project follows the [Contributor Covenant](https://www.contributor-covenant.org/version/2/1/code_of_conduct/).
+## Our Pledge
 
-By participating, you are expected to uphold this code.  
-Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to **[belliaspan@gmail.com]**.
+We as members, contributors, and leaders pledge to make participation in this project a harassment-free experience for everyone...
+
+[Full Contributor Covenant 2.1 text here]
+
+## Enforcement
+
+Instances of abusive behavior may be reported to:
+
+belliaspan@gmail.com
+
+All complaints will be reviewed and investigated promptly and fairly.

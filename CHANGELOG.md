@@ -19,7 +19,7 @@ All notable changes to this project will be documented in this file. See [standa
 - Repository cleaned for public release
 - Improved build reproducibility
 
-## [2.1.0] - 2026-02-XX
+## [2.1.0] - 2026-02-09
 ### Added
 - Release infrastructure
 
