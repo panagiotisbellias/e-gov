@@ -1,18 +1,18 @@
 # Contributing Guidelines
 
-Thank you for your interest in contributing to this project! 🎉  
-We welcome all kinds of contributions — from bug reports and documentation updates to new features and code improvements.
+Thank you for your interest in contributing! 🎉  
+This project welcomes improvements, bug fixes, documentation updates, and new features.
 
 ---
 
 ## 🪄 Getting Started
 
-1. **Fork** the repository.
-2. **Clone** your fork locally:
+1. Fork the repository
+2. Clone your fork:
    ```bash
-   git clone https://github.com/<your-username>/<repo-name>.git
+   git clone https://github.com/<your-username>/e-gov.git
    ```
-3. **Create a branch** for your changes:
+3. Create a branch:
    ```bash
    git checkout -b feature/your-feature-name
    ```
@@ -21,149 +21,129 @@ We welcome all kinds of contributions — from bug reports and documentation upd
 
 ## 🧱 Development Setup
 
-Make sure you have all necessary dependencies installed.  
+Ensure you have:
+- JDK 17+
+- Apache Ant
+
 ```bash
 java -version
 ant -version
 ```
 
+Build locally:
 ```bash
+ant clean
 ant jar
-java -jar .\dist\e-gov_V2.2.0.jar
 ```
 
-Run tests before submitting:
+Run tests:
 ```bash
 ant test
 ```
 
 ---
 
-## 🧩 Commit Guidelines
+## 🧭 Code Style & Standards
 
-### 🧱 Conventional Commits Guide
-
-This project follows the [Conventional Commits](https://www.conventionalcommits.org/) specification to ensure consistent, meaningful commit messages and automated changelog generation.
+Please:
+- Follow the existing project structure
+- Keep methods focused and readable
+- Avoid unnecessary dependencies
+- Ensure no new static analysis warnings
+- Write meaningful test coverage for new features
 
 ---
 
-#### 💬 Commit Message Format
+## 🧩 Commit Guidelines
 
-Each commit message should follow this format:
+This project follows the Conventional Commits specification.
+
+### Format
 
 ```
 <type>(<scope>): <description>
 ```
 
-**Examples:**
+### Examples
 
 ```
-feat(ui): add dark mode toggle
-fix(api): handle missing tokens
-chore(ci): update GitHub Actions versions
+feat(core): add authentication module
+fix(build): resolve Ant classpath issue
+docs(readme): improve setup instructions
+ci(workflow): update GitHub Actions version
 ```
 
 ---
 
 ### 🧩 Common Types
 
-| Type         | Description                                                   |
-|--------------|---------------------------------------------------------------|
-| **feat**     | A new feature                                                 |
-| **fix**      | A bug fix                                                     |
-| **docs**     | Documentation-only changes                                    |
-| **style**    | Code formatting, missing semicolons, etc.                     |
-| **refactor** | Code change that neither fixes a bug nor adds a feature       |
-| **perf**     | Code change that improves performance                         |
-| **test**     | Adding or correcting tests                                    |
-| **build**    | Changes that affect the build system or external dependencies |
-| **ci**       | Changes to CI/CD configuration files or scripts               |
-| **chore**    | Maintenance tasks, dependency updates, etc.                   |
+| Type     | Purpose              |
+| -------- | -------------------- |
+| feat     | New feature          |
+| fix      | Bug fix              |
+| docs     | Documentation        |
+| refactor | Code restructuring   |
+| test     | Add or update tests  |
+| build    | Build system changes |
+| ci       | CI configuration     |
+| chore    | Maintenance tasks    |
 
 ---
 
-### 🧠 Enforcing Conventional Commits
+### 🔒 Security & Secret Protection
 
-### Local Enforcement
+This repository uses Gitleaks for secret scanning.
 
-Install Husky and Commitlint to check commit messages locally before pushing.
+- Never commit credentials
+- Use GitHub Secrets
+- Pull Requests will fail if secrets are detected
 
-```bash
-npm install --save-dev @commitlint/{config-conventional,cli} husky
-npx husky init
-echo 'npx --no -- commitlint --edit "$1"' > .husky/commit-msg
-chmod +x .husky/commit-msg
+---
+
+## 🔁 Pull Request Process
+
+Before submitting:
+- Tests pass locally
+- CI passes
+- No secrets introduced
+- Code follows Conventional Commits
+- Documentation updated (if needed)
+- Static analysis clean
+
+Keep PRs:
+- Small
+- Focused
+- Clearly described
+
+Reference related issues:
 ```
-
-> 🆕 **Note:** Conventional Commits are enforced only for new commits after v1.0.0.  
-> Older commits may not follow the format.
-
----
-
-### 🔒 Automatic Secret Detection
-
-
-This repository uses [Gitleaks](https://github.com/zricethezav/gitleaks) to automatically scan commits and pull requests for sensitive secrets (API keys, tokens, passwords, etc.).
-
-
-- **Pull requests** will be blocked if secrets are detected.
-- Always store credentials in **GitHub secrets** and never commit them directly.
-- Review the `gitleaks-report.json` artifact if the workflow fails.
-
----
-
-### Branch Protection Rules
-
-- All work must go through Pull Requests.
-- Direct pushes to `master` and `development` are not allowed.
-- The CI pipeline (`CI - Ant Build & Checks`) must pass before merging.
-- At least one approving review is required.
-
----
-
-## 🧪 Pull Requests
-
-- Ensure all tests pass.
-- Update relevant documentation.
-- Keep pull requests small and focused.
-- Reference any related issues (e.g. `Fixes #123`).
+Fixes #123
+```
 
 ---
 
 ## 🐛 Reporting Issues
 
-If you find a bug or have a feature request:
-1. Search existing issues first to avoid duplicates.
-2. Use the provided issue template (if available).
-3. Be clear and provide as much context as possible.
+Before opening a new issue:
+1. Search existing issues
+2. Use the issue template
+3. Provide clear reproduction steps
 
 ---
 
 ## 🌱 Good First Issues
 
-Issues labeled `good first issue` are beginner-friendly tasks designed for new contributors.
-
-They typically involve:
-- Documentation improvements
-- Adding or improving tests
-- Fixing lint or static analysis warnings
-- Small refactors with clear scope
-
-Each good first issue includes:
-- Clear steps to follow
+Issues labeled `good first issue` are beginner-friendly and include:
+- Clear instructions
+- Defined scope
 - Expected outcome
-- Pointers to relevant files or documentation
-
-If you’re new to the project, start there!
 
 ---
 
-## 💬 Questions or Help
+## 💬 Questions?
 
-If you have questions, feel free to:
-- Open a discussion (if enabled)
-- Reach out via the issue tracker
+Open an issue or discussion if you need clarification.
 
 ---
 
-Thank you for contributing! 💚
+Thank you for helping improve e-Gov! 💚

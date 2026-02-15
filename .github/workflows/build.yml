@@ -2,8 +2,9 @@ name: CI - Ant Build & Checks
 
 on:
   push:
-    branches: [ master, development ]
+    branches: [ master, development, task/1-public-release-with-full-docs-and-ci-6f2rxxV33qHWH33c ]
   pull_request:
+    branches: [ master, development ]
 
 jobs:
   build-and-test:
@@ -13,13 +14,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Set up Java
+      - name: Set up Java 17
         uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: 17
 
-      - name: Verify Java version
+      - name: Verify Java installation
         run: java -version
 
       - name: Copy Maven dependencies
@@ -36,13 +37,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-ant-
 
-      - name: Build with Ant
-        run: ant -noinput -buildfile build.xml
+      - name: Build project
+        run: ant -noinput -buildfile build.xml clean jar
 
       - name: Run unit tests
         run: ant test
 
-      - name: Run static analysis (Checkstyle)
+      - name: Run Checkstyle (if defined)
         run: |
           if ant -p | grep -q checkstyle; then
             ant checkstyle
@@ -50,13 +51,12 @@ jobs:
             echo "No 'checkstyle' target defined, skipping."
           fi
 
-      - name: Archive build artifacts
+      - name: Upload build artifacts
         if: success()
         uses: actions/upload-artifact@v6
         with:
-          name: build-artifacts
+          name: e-gov-artifacts
           path: |
-            build/
             dist/
-            target/
+            build/
             **/*.jar

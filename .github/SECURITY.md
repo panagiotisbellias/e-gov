@@ -2,45 +2,65 @@
 
 ## Supported Versions
 
-We only provide security updates for actively maintained versions of the project.
+Security updates are provided only for actively maintained release versions.
 
-| Version     | Supported       |
-|-------------|-----------------|
-| master      | ✅ Supported     |
-| development | ✅ Supported     |
-| <older>     | ❌ Not supported |
+| Version | Supported |
+|----------|------------|
+| 3.x      | ✅ Supported |
+| 2.x      | ❌ Not supported |
+| < 2.0    | ❌ Not supported |
+
+Only the latest stable major release line receives security fixes.
 
 ---
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability, please **do not open a public issue**.  
-Instead, report it directly and responsibly:
+If you discover a security vulnerability, **do not open a public issue**.
 
-1. Email us at **[belliaspan@gmail.com]**.
-2. Include details to help us reproduce the issue:
-   - A clear description of the vulnerability.
-   - Steps to reproduce.
-   - Any relevant code snippets, logs, or screenshots.
-3. We’ll acknowledge your report within **3 business days** and provide a timeline for resolution.
+Please report it responsibly:
+
+Email: belliaspan@gmail.com
+
+Include:
+
+- Clear description of the issue
+- Steps to reproduce
+- Impact assessment (if known)
+- Relevant logs or screenshots
+
+You will receive acknowledgment within **3 business days**.
 
 ---
 
 ## Disclosure Policy
 
-- We appreciate responsible disclosure and will credit reporters where appropriate.
-- Please avoid publicly disclosing the vulnerability until it has been fixed and released.
+- We follow responsible disclosure.
+- Do not publicly disclose the issue until a fix is released.
+- Contributors will be credited unless anonymity is requested.
 
 ---
 
-## Security Best Practices
+## Security Practices
 
-To keep your installation secure:
-- Always use the latest stable release.
-- Review dependencies for known vulnerabilities.
-- Avoid exposing sensitive configuration or credentials.
-- Follow the project’s recommended deployment guidelines.
+This project applies:
+
+- Branch protection rules
+- Mandatory Pull Requests
+- CI validation before merge
+- Secret scanning (Gitleaks)
+- Dependency monitoring
+- Static analysis enforcement
 
 ---
 
-Thank you for helping keep this project safe! 🔒
+## Best Practices for Users
+
+- Always use the latest stable release
+- Avoid committing credentials
+- Review dependencies regularly
+- Follow recommended deployment guidelines
+
+---
+
+Thank you for helping keep this project secure. 🔒
