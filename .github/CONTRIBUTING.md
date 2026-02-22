@@ -29,7 +29,7 @@ ant -version
 
 ```bash
 ant jar
-java -jar .\dist\e-gov_V2.2.0.jar
+java -jar .\dist\e-gov_V2.2.1.jar
 ```
 
 Run tests before submitting:

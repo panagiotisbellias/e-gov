@@ -83,7 +83,7 @@ ant jar
 ### Run
 
 ``` bash
-java -jar ./dist/e-gov_V2.2.0.jar
+java -jar ./dist/e-gov_V2.2.1.jar
 ```
 
 ### Node/npm related tasks (Optional)
