@@ -71,18 +71,16 @@
 
     -->
     <!-- ===================== -->
-    <!-- Maven dependency setup -->
+    <!-- Project properties -->
     <!-- ===================== -->
-
     <property name="lib.dir" value="lib"/>
     <property name="build.dir" value="build"/>
 
     <!-- ===================== -->
-    <!-- Classpaths -->
+    <!-- Classpath definitions -->
     <!-- ===================== -->
-
     <path id="main.classpath">
-        <fileset dir="lib" includes="**/*.jar"/>
+        <fileset dir="${lib.dir}" includes="**/*.jar"/>
     </path>
 
     <path id="test.classpath">
@@ -91,9 +89,8 @@
     </path>
 
     <!-- ===================== -->
-    <!-- Tests -->
+    <!-- Test target -->
     <!-- ===================== -->
-
     <target name="test" depends="compile">
         <mkdir dir="build/test-classes"/>
 
@@ -115,7 +112,11 @@
         </java>
     </target>
 
+    <!-- ===================== -->
+    <!-- Checkstyle -->
+    <!-- ===================== -->
     <target name="checkstyle" depends="compile">
+        <echo message="Running Checkstyle analysis..."/>
         <java classname="com.puppycrawl.tools.checkstyle.Main"
               fork="true"
               failonerror="true">
@@ -126,23 +127,41 @@
         </java>
     </target>
 
+    <!-- ===================== -->
+    <!-- PMD (Correct Ant Task Version) -->
+    <!-- ===================== -->
     <target name="pmd" depends="compile">
-        <java classname="net.sourceforge.pmd.cli.PmdCli"
-              fork="true"
-              failonerror="true">
-            <classpath refid="main.classpath"/>
 
-            <!-- PMD 7 CLI arguments -->
-            <arg value="check"/>
-            <arg value="-d"/>
-            <arg value="src"/>
-            <arg value="-R"/>
-            <arg value="config/pmd/ruleset.xml"/>
-            <arg value="-f"/>
-            <arg value="text"/>
-        </java>
-    </target>
+    <echo message="Running PMD analysis..."/>
 
+    <!-- Load ALL jars from lib (including slf4j) -->
+    <path id="pmd.lib.path">
+        <fileset dir="${lib.dir}" includes="**/*.jar"/>
+    </path>
+
+    <!-- Define PMD Ant task -->
+    <taskdef name="pmd"
+             classname="net.sourceforge.pmd.ant.PMDTask">
+        <classpath refid="pmd.lib.path"/>
+    </taskdef>
+
+    <!-- Run PMD -->
+    <pmd rulesetfiles="config/pmd/ruleset.xml"
+         failOnRuleViolation="false">
+        <formatter type="html" toFile="pmd-report.html"/>
+        <fileset dir="src">
+            <include name="**/*.java"/>
+        </fileset>
+    </pmd>
+
+    <echo message="PMD report generated: pmd-report.html"/>
+
+</target>
+
+
+    <!-- ===================== -->
+    <!-- Composite target -->
+    <!-- ===================== -->
     <target name="quality" depends="checkstyle,pmd"/>
 
 </project>

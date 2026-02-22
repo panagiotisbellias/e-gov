@@ -6,9 +6,9 @@ import authorized.AuthorizedPerson;
  *
  * @author Panagiotis Bellias
  */
-@SuppressWarnings("PMD.DataClass")
 public class Authorization extends Affirmation {
     
+    private static final long serialVersionUID = 1L;
     private AuthorizedPerson authorizedPerson = new AuthorizedPerson();
     private String authorizationReason;
 
@@ -57,8 +57,8 @@ public class Authorization extends Affirmation {
                 authorizedPerson.isValid();
     }
 
-    public void createAndSetAuthorizedPerson() {
-        this.authorizedPerson = AuthorizedPerson.createOne();
+    public void createAndSetAuthorizedPerson(java.util.Scanner input) {
+        this.authorizedPerson = AuthorizedPerson.createOne(input);
     }
     
 }

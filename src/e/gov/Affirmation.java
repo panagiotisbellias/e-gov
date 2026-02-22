@@ -1,7 +1,6 @@
 package e.gov;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -11,10 +10,13 @@ import java.util.logging.Logger;
  *
  * @author Panagiotis Bellias
  */
-@SuppressWarnings("PMD.DataClass")
-public class Affirmation {
+public class Affirmation implements java.io.Serializable {
 
+    private static final long serialVersionUID = 1L;
     private static final Logger LOG = Logger.getLogger(Affirmation.class.getName());
+    private static final int RECEIPT_REASON = 1;
+    private static final int DEPOSIT_REASON = 2;
+    private static final String NO_RESPONSE = "NO";
 
     private long taxIdentificationNumber;
     private long cellPhoneNumber;
@@ -94,93 +96,86 @@ public class Affirmation {
         this.uniqueCode = uniqueCode;
     }
     
-    public static Affirmation createOne(int id){
+    public static Affirmation createOne(int id, Scanner input){
 
-        try (Scanner input = new Scanner(System.in)) {
-            LOG.info("Please enter your tax identification number: ");
-            long taxIdentificationNumber = input.nextLong();
-            input.nextLine();
-            LOG.info("Please enter your full name: ");
-            String fullName = input.nextLine();
-            LOG.info("Please enter your cell phone number: ");
-            long cellPhoneNumber = input.nextLong();
-            input.nextLine();
-            LOG.info("Please enter your identity card: ");
-            String identityCard = input.nextLine();
+        LOG.info("Please enter your tax identification number: ");
+        long taxIdentificationNumberValue = input.nextLong();
+        input.nextLine();
+        LOG.info("Please enter your full name: ");
+        String fullNameValue = input.nextLine();
+        LOG.info("Please enter your cell phone number: ");
+        long cellPhoneNumberValue = input.nextLong();
+        input.nextLine();
+        LOG.info("Please enter your identity card: ");
+        String identityCardValue = input.nextLine();
 
-            LOG.info("Please enter the depositor: ");
-            String depositor = input.nextLine();
-            Affirmation validator = new Affirmation();
-            while (!validator.isDepositorValid(depositor)) {
-                LOG.info("Too long name for depositor. Try again...");
-                depositor = input.nextLine();
-            }
-
-            LOG.info("Please enter your text of statement: ");
-            String statementText = input.nextLine();
-            while (!new Affirmation().isStatementTextValid(statementText)) {
-                LOG.info("Too long text. Try again...");
-                statementText = input.nextLine();
-            }
-
-            LOG.info("Is your document an authorization? Enter \"YES\" or \"NO\": ");
-            String authorizationDoc = input.next();
-
-            if ("NO".equals(authorizationDoc)) {
-                Affirmation affirmation = new Affirmation(taxIdentificationNumber, cellPhoneNumber, fullName, identityCard,
-                        depositor, statementText, id);
-                return affirmation;
-            } else {
-                Authorization authorization = new Authorization(taxIdentificationNumber, cellPhoneNumber, fullName,
-                        identityCard, depositor, statementText, id);
-                authorization.createAndSetAuthorizedPerson();
-                LOG.info("Please enter the reason of authorization: \n"
-                        + "1 for receipt, \n"
-                        + "2 for deposit or \n"
-                        + "3 for signature");
-                int reasonCode = input.nextInt();
-                input.nextLine();
-                String reason;
-                switch (reasonCode) {
-                    case 1:
-                        reason = "Receipt";
-                        break;
-                    case 2:
-                        reason = "Deposit";
-                        break;
-                    default:
-                        reason = "Signature";
-                        break;
-                }
-                authorization.setAuthorizationReason(reason);
-                return authorization;
-            }
+        LOG.info("Please enter the depositor: ");
+        String depositorValue = input.nextLine();
+        while (!isDepositorValid(depositorValue)) {
+            LOG.info("Too long name for depositor. Try again...");
+            depositorValue = input.nextLine();
         }
+
+        LOG.info("Please enter your text of statement: ");
+        String statementTextValue = input.nextLine();
+        while (!isStatementTextValid(statementTextValue)) {
+            LOG.info("Too long text. Try again...");
+            statementTextValue = input.nextLine();
+        }
+
+        LOG.info("Is your document an authorization? Enter \"YES\" or \"NO\": ");
+        String authorizationDoc = input.next();
+
+        if (NO_RESPONSE.equalsIgnoreCase(authorizationDoc)) {
+            return new Affirmation(taxIdentificationNumberValue, cellPhoneNumberValue, fullNameValue, identityCardValue,
+                    depositorValue, statementTextValue, id);
+        }
+
+        // Create authorization for non-NO responses
+        Authorization authorization = new Authorization(taxIdentificationNumberValue, cellPhoneNumberValue, fullNameValue,
+                identityCardValue, depositorValue, statementTextValue, id);
+        authorization.createAndSetAuthorizedPerson(input);
+        LOG.info("Please enter the reason of authorization: \n"
+                + "1 for receipt, \n"
+                + "2 for deposit or \n"
+                + "3 for signature");
+        int reasonCode = input.nextInt();
+        input.nextLine();
+        String reason;
+        switch (reasonCode) {
+            case RECEIPT_REASON:
+                reason = "Receipt";
+                break;
+            case DEPOSIT_REASON:
+                reason = "Deposit";
+                break;
+            default:
+                reason = "Signature";
+                break;
+        }
+        authorization.setAuthorizationReason(reason);
+        return authorization;
 
     }
 
-    public boolean isDepositorValid(String depositor) {
+    private static boolean isDepositorValid(String depositor) {
         return depositor != null && depositor.length() <= 12;
     }
 
-    public boolean isStatementTextValid(String statementText) {
+    private static boolean isStatementTextValid(String statementText) {
         return statementText != null && statementText.length() <= 15;
     }
-
-    @SuppressWarnings("PMD.LawOfDemeter")
-    public static List<Affirmation> searching(List<Affirmation> documents){
+    
+    public static List<Affirmation> searching(List<Affirmation> documents, Scanner input){
         
         LOG.info("Enter your unique document code: ");
-        int id;
-        try (Scanner input = new Scanner(System.in)) {
-            id = input.nextInt();
-        }
-        ArrayList<Affirmation> results = new ArrayList<>();
-        Iterator<Affirmation> doc = documents.iterator();
-        while(doc.hasNext()){
-            Affirmation document = doc.next();
-            if (document.hasUniqueCode(id)) {
-                results.add(document);
+        int id = input.nextInt();
+        List<Affirmation> results = new ArrayList<>();
+        if (documents != null) {
+            for (Affirmation document : documents) {
+                if (document != null && document.hasUniqueCode(id)) {
+                    results.add(document);
+                }
             }
         }
         return results;
@@ -190,14 +185,13 @@ public class Affirmation {
     public boolean hasUniqueCode(int id) {
         return this.uniqueCode == id;
     }
-
-    @SuppressWarnings("PMD.LawOfDemeter")
+    
     public static void docResults(List<Affirmation> results){
-        
-        Iterator<Affirmation> res = results.iterator();
-        while(res.hasNext()){
-            Affirmation aff = res.next();
-            if (LOG.isLoggable(Level.INFO)) {
+        if (results == null) {
+            return;
+        }
+        for (Affirmation aff : results) {
+            if (aff != null && LOG.isLoggable(Level.INFO)) {
                 String kind = aff.getDocumentKind();
                 LOG.info("Unique Document Code: " + aff.getUniqueCode() + "\n"
                         + "Citizen Full Name: " + aff.getFullName() + "\n"
@@ -215,13 +209,13 @@ public class Affirmation {
         return hasValidStatementText();
     }
 
-    @SuppressWarnings("PMD.LawOfDemeter")
+    
     public String getDocumentKind() {
         return this.getClass().getSimpleName();
     }
 
     public void logSummary(Logger log) {
-        if (log.isLoggable(Level.INFO)) {
+        if (log != null && log.isLoggable(Level.INFO)) {
             log.info(this.toString());
         }
     }
@@ -231,5 +225,21 @@ public class Affirmation {
         return "Document is created for " + getFullName() + "\n"
                 + "with unique docuement code: " + getUniqueCode();
     }
-    
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Affirmation that = (Affirmation) o;
+        return uniqueCode == that.uniqueCode;
+    }
+
+    @Override
+    public int hashCode() {
+        return java.util.Objects.hash(uniqueCode);
+    }
 }

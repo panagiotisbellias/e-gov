@@ -7,8 +7,9 @@ import java.util.logging.Logger;
  *
  * @author Panagiotis Bellias
  */
-public class AuthorizedPerson {
+public class AuthorizedPerson implements java.io.Serializable {
 
+    private static final long serialVersionUID = 1L;
     private static final Logger LOG = Logger.getLogger(AuthorizedPerson.class.getName());
     
     private long taxIdentificationNumber;
@@ -48,18 +49,16 @@ public class AuthorizedPerson {
         this.identityCard = identityCard;
     }
     
-    public static AuthorizedPerson createOne(){
+    public static AuthorizedPerson createOne(Scanner input){
 
-        AuthorizedPerson authorizedPerson;
-        try (Scanner input = new Scanner(System.in)) {
-            authorizedPerson = new AuthorizedPerson();
-            LOG.info("Please enter the tax identification number of the authorized person: ");
-            authorizedPerson.setTaxIdentificationNumber(input.nextLong());
-            LOG.info("Please enter the full name of the authorized person: ");
-            authorizedPerson.setFullName(input.nextLine());
-            LOG.info("Please enter the identity card of the authorized person: ");
-            authorizedPerson.setIdentityCard(input.nextLine());
-        }
+        AuthorizedPerson authorizedPerson = new AuthorizedPerson();
+        LOG.info("Please enter the tax identification number of the authorized person: ");
+        authorizedPerson.setTaxIdentificationNumber(input.nextLong());
+        input.nextLine(); // consume newline
+        LOG.info("Please enter the full name of the authorized person: ");
+        authorizedPerson.setFullName(input.nextLine());
+        LOG.info("Please enter the identity card of the authorized person: ");
+        authorizedPerson.setIdentityCard(input.nextLine());
 
         return authorizedPerson;
         
@@ -77,6 +76,22 @@ public class AuthorizedPerson {
 
     public boolean matchesTaxId(long taxId) {
         return taxIdentificationNumber == taxId;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        AuthorizedPerson that = (AuthorizedPerson) o;
+        return taxIdentificationNumber == that.taxIdentificationNumber;
+    }
+
+    @Override
+    public int hashCode() {
+        return java.util.Objects.hash(taxIdentificationNumber);
     }
     
 }
