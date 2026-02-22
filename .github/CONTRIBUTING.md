@@ -34,6 +34,7 @@ Build locally:
 ```bash
 ant clean
 ant jar
+java -jar .\dist\e-gov_V3.0.0.jar
 ```
 
 Run tests:

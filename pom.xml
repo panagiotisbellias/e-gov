@@ -8,7 +8,7 @@
 
     <groupId>gr.egov</groupId>
     <artifactId>e-gov</artifactId>
-    <version>2.2.0</version>
+    <version>2.2.1</version>
     <packaging>pom</packaging>
 
     <name>e-gov</name>
@@ -23,7 +23,7 @@
         <project.build.testSourceDirectory>test</project.build.testSourceDirectory>
 
         <!-- Testing -->
-        <junit.platform.version>6.0.2</junit.platform.version>
+        <junit.platform.version>6.0.3</junit.platform.version>
 
         <!-- Quality -->
         <checkstyle.version>13.2.0</checkstyle.version>
@@ -96,6 +96,51 @@
             <scope>runtime</scope>
         </dependency>
 
+        <dependency>
+            <groupId>net.sourceforge.pmd</groupId>
+            <artifactId>pmd-ant</artifactId>
+            <version>${pmd.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        
+
     </dependencies>
+
+    <!-- ===================== -->
+    <!-- Build configuration -->
+    <!-- ===================== -->
+    <build>
+        <plugins>
+            <!-- PMD Plugin for static analysis -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.26.0</version>
+                <configuration>
+                    <rulesets>
+                        <ruleset>config/pmd/ruleset.xml</ruleset>
+                    </rulesets>
+                    <sourceEncoding>utf-8</sourceEncoding>
+                    <minimumTokens>100</minimumTokens>
+                    <targetJdk>${java.version}</targetJdk>
+                    <excludes>
+                        <exclude>**/*Bean.java</exclude>
+                        <exclude>**/generated/*.java</exclude>
+                    </excludes>
+                    <excludeRoots>
+                        <excludeRoot>target/generated-sources/stubs</excludeRoot>
+                    </excludeRoots>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                            <goal>pmd</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

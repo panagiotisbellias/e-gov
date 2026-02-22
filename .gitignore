@@ -2,13 +2,30 @@ lib/
 build/
 target/
 dist/
-*.log
-*.class
-*.jar
-.idea/
+
 .vscode/
 node_modules/
 coverage/
-*.iml
-.DS_Store
 .husky/_/
+
+# IDE files
+*.iml
+.idea/
+*.ipr
+*.iws
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build outputs
+*.class
+*.jar
+*.war
+*.ear
+
+# Logs
+*.log
+
+# PMD report
+pmd-report.html
