@@ -1,4 +1,7 @@
 # e-Gov Desktop Application
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![CI](https://img.shields.io/github/actions/workflow/status/panagiotisbellias/e-gov/build.yml?label=CI)]()
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)]()
@@ -198,3 +201,25 @@ For help, questions, or feature requests:
 ## 🚀 Current Status
 
 Public Open-Source Ready (v3.0.0+)
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/mjroshanackthar"><img src="https://avatars.githubusercontent.com/u/223994218?v=4?s=100" width="100px;" alt="mjroshanackthar"/><br /><sub><b>mjroshanackthar</b></sub></a><br /><a href="https://github.com/panagiotisbellias/e-gov/commits?author=mjroshanackthar" title="Code">💻</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
