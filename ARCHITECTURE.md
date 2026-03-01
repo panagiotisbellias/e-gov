@@ -50,7 +50,7 @@ It aims to provide secure and extendable government-related functionality.
   ```
 - **Run:**
   ```bash
-  java -jar ./dist/e-gov_V2.2.1.jar
+  java -jar ./dist/e-gov_V3.0.0.jar
   ```
 
 ---
