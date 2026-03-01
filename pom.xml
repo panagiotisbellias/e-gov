@@ -9,7 +9,7 @@
     <groupId>gr.egov</groupId>
     <artifactId>e-gov</artifactId>
     <version>2.2.1</version>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
 
     <name>e-gov</name>
     <description>Dependency management for e-gov Ant-based build</description>
@@ -116,26 +116,31 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
                 <version>3.28.0</version>
+
                 <configuration>
                     <rulesets>
                         <ruleset>config/pmd/ruleset.xml</ruleset>
                     </rulesets>
-                    <sourceEncoding>utf-8</sourceEncoding>
-                    <minimumTokens>100</minimumTokens>
+
+                    <failOnViolation>true</failOnViolation>
+                    <failurePriority>2</failurePriority>
+
+                    <printFailingErrors>true</printFailingErrors>
                     <targetJdk>${java.version}</targetJdk>
+                    <sourceEncoding>utf-8</sourceEncoding>
+
                     <excludes>
                         <exclude>**/*Bean.java</exclude>
                         <exclude>**/generated/*.java</exclude>
                     </excludes>
-                    <excludeRoots>
-                        <excludeRoot>target/generated-sources/stubs</excludeRoot>
-                    </excludeRoots>
                 </configuration>
+
                 <executions>
                     <execution>
+                        <id>pmd-check</id>
+                        <phase>verify</phase>
                         <goals>
                             <goal>check</goal>
-                            <goal>pmd</goal>
                         </goals>
                     </execution>
                 </executions>
