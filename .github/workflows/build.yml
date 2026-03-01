@@ -2,7 +2,7 @@ name: CI - Ant Build & Checks
 
 on:
   push:
-    branches: [ master, development, task/1-public-release-with-full-docs-and-ci-6f2rxxV33qHWH33c ]
+    branches: [ master, development, task/publish-v3-0-0-after-pmd-integration-6g2gx4g3XR9wGCCc ]
   pull_request:
     branches: [ master, development ]
 
@@ -19,23 +19,22 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
+          cache: maven
 
       - name: Verify Java installation
         run: java -version
 
+      # -----------------------------
+      # Maven Dependencies
+      # -----------------------------
       - name: Copy Maven dependencies
         run: mvn -B dependency:copy-dependencies -DoutputDirectory=lib
 
+      # -----------------------------
+      # Ant Build
+      # -----------------------------
       - name: Build with Ant
         run: ant compile
-
-      - name: Cache Ant dependencies
-        uses: actions/cache@v5
-        with:
-          path: ~/.ant
-          key: ${{ runner.os }}-ant-${{ hashFiles('**/build.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-ant-
 
       - name: Build project
         run: ant -noinput -buildfile build.xml clean jar
@@ -43,14 +42,18 @@ jobs:
       - name: Run unit tests
         run: ant test
 
-      - name: Run Checkstyle (if defined)
-        run: |
-          if ant -p | grep -q checkstyle; then
-            ant checkstyle
-          else
-            echo "No 'checkstyle' target defined, skipping."
-          fi
+      # -----------------------------
+      # PMD Static Analysis
+      # -----------------------------
+      - name: Run PMD analysis
+        run: mvn -B pmd:pmd
 
+      - name: Enforce PMD rules (fail on violations)
+        run: mvn -B pmd:check
+
+      # -----------------------------
+      # Upload Artifacts
+      # -----------------------------
       - name: Upload build artifacts
         if: success()
         uses: actions/upload-artifact@v6
@@ -60,3 +63,12 @@ jobs:
             dist/
             build/
             **/*.jar
+
+      - name: Upload PMD report
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: pmd-report
+          path: |
+            target/site/pmd.html
+            target/pmd.xml
