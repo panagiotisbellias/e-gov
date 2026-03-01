@@ -166,6 +166,14 @@ See `CONTRIBUTING.md` for full guidelines.
 
 ------------------------------------------------------------------------
 
+## Contributors
+
+See [CONTRIBUTORS.md](CONTRIBUTORS.md)
+
+![Contributors](https://img.shields.io/github/contributors/panagiotisbellias/e-gov)
+
+------------------------------------------------------------------------
+
 ## 🔒 Security
 
 This project follows secure development practices including:
