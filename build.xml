@@ -128,40 +128,12 @@
     </target>
 
     <!-- ===================== -->
-    <!-- PMD (Correct Ant Task Version) -->
+    <!-- PMD (Deprecated - Use Maven) -->
     <!-- ===================== -->
-    <target name="pmd" depends="compile">
+    <target name="pmd">
+        <echo message="PMD is executed via Maven (mvn verify). This Ant target is deprecated."/>
+    </target>
 
-    <echo message="Running PMD analysis..."/>
-
-    <!-- Load ALL jars from lib (including slf4j) -->
-    <path id="pmd.lib.path">
-        <fileset dir="${lib.dir}" includes="**/*.jar"/>
-    </path>
-
-    <!-- Define PMD Ant task -->
-    <taskdef name="pmd"
-             classname="net.sourceforge.pmd.ant.PMDTask">
-        <classpath refid="pmd.lib.path"/>
-    </taskdef>
-
-    <!-- Run PMD -->
-    <pmd rulesetfiles="config/pmd/ruleset.xml"
-         failOnRuleViolation="false">
-        <formatter type="html" toFile="pmd-report.html"/>
-        <fileset dir="src">
-            <include name="**/*.java"/>
-        </fileset>
-    </pmd>
-
-    <echo message="PMD report generated: pmd-report.html"/>
-
-</target>
-
-
-    <!-- ===================== -->
-    <!-- Composite target -->
-    <!-- ===================== -->
-    <target name="quality" depends="checkstyle,pmd"/>
+    <target name="quality" depends="checkstyle"/>
 
 </project>
