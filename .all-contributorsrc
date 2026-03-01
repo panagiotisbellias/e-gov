@@ -8,6 +8,15 @@
   "commitConvention": "angular",
   "contributors": [
     {
+      "login": "panagiotisbellias",
+      "name": "Panagiotis Bellias",
+      "avatar_url": "https://avatars.githubusercontent.com/u/68272816?v=4",
+      "profile": "https://github.com/panagiotisbellias",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
       "login": "dependabot",
       "name": "Dependabot",
       "avatar_url": "https://avatars.githubusercontent.com/u/27347476?v=4",
