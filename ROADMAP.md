@@ -79,6 +79,14 @@ This document outlines the planned direction of the project, focusing on build q
 
 ---
 
+## Community
+
+- First external contributions accepted 🎉
+- Improved contributor onboarding
+- Established ADR documentation
+
+---
+
 ## Out of Scope (for now)
 
 * Major feature development unrelated to build/quality
