@@ -213,6 +213,8 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tbody>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/panagiotisbellias"><img src="https://avatars.githubusercontent.com/u/68272816?v=4?s=100" width="100px;" alt="Panagiotis Bellias"/><br /><sub><b>Panagiotis Bellias</b></sub></a><br /><a href="https://github.com/panagiotisbellias/e-gov/commits?author=panagiotisbellias" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/features/security"><img src="https://avatars.githubusercontent.com/u/27347476?v=4?s=100" width="100px;" alt="Dependabot"/><br /><sub><b>Dependabot</b></sub></a><br /><a href="#maintenance-dependabot" title="Maintenance">🚧</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/mjroshanackthar"><img src="https://avatars.githubusercontent.com/u/223994218?v=4?s=100" width="100px;" alt="mjroshanackthar"/><br /><sub><b>mjroshanackthar</b></sub></a><br /><a href="https://github.com/panagiotisbellias/e-gov/commits?author=mjroshanackthar" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
