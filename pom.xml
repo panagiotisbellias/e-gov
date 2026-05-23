@@ -23,7 +23,7 @@
         <project.build.testSourceDirectory>test</project.build.testSourceDirectory>
 
         <!-- Testing -->
-        <junit.platform.version>6.0.3</junit.platform.version>
+        <junit.platform.version>6.1.0</junit.platform.version>
 
         <!-- Quality -->
         <checkstyle.version>13.4.2</checkstyle.version>
